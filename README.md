@@ -3,9 +3,7 @@
 SFTP Library for CodeIgniter. 
 
 ## Setup
-Copy all files and folders to your application directory.
-
-Change settings in config/sftp.php
+Copy all files and folders to your application directory. Change settings in config/sftp.php
 
 ## Usage
 
