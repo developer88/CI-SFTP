@@ -14,16 +14,16 @@
 
 /**
 * SFTP class using PHPs phpseclib features.
+* base on phpseclib http://phpseclib.sourceforge.net/
 *
 * @package     CodeIgniter
 * @subpackage  Libraries
 * @category    Sftp
 * @author      Andrey Eremin
+* @version     0.1
 */
 
 class Sftp {
-
-
 
 	var $hostname	 = '';
 	var $username	 = '';
@@ -41,7 +41,7 @@ class Sftp {
 		$this->password = $this->CI->config->item('password');
 		$this->default_dir = $this->CI->config->item('default_dir');
 
-		// Load libbraries
+		// Load libraries
 		foreach (glob("{".APPPATH."libraries/sftp/Crypt/*.php}", GLOB_BRACE) as $filename) {
 		    include_once $filename;
 		}
@@ -55,6 +55,7 @@ class Sftp {
 		}
 	}
 	
+	// Connect to SFTP server
 	public function connect() {
 		$this->sftp = new Net_SFTP($this->hostname);
 		if (!$this->sftp->login($this->username, $this->password)) {
@@ -62,6 +63,7 @@ class Sftp {
 		}
 	}
 
+	// return list of files
 	public function files_list($path = '') {
 		$ret = array();
 		$files =  $this->sftp->nlist( (strlen($path) > 0 ? $path : $this->default_dir) );
@@ -73,6 +75,7 @@ class Sftp {
 		return $ret;
 	}
 
+	// get content of file
 	public function download($filename) {
 		return  $this->sftp->get($filename);
 	}
